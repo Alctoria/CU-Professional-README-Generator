@@ -1,5 +1,8 @@
 // TODO: Include packages needed for this application
 
+import {writeFile} from 'fs';
+import inquirer from 'inquirer';
+import generateMarkdown from "./utils/generateMarkdown.js";
 
 // TODO: Create an array of questions for user input
 
@@ -33,7 +36,7 @@ const questions = [
     {
         "type": "input",
         "message": "Describe any credit you wish to attribute for the work done in this project.",
-        "name": "credit"
+        "name": "credits"
     },
     {
         "type": "input",
@@ -58,10 +61,85 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+
+function writeToFile(fileName, data) {
+    const license = generateMarkdown(data);
+
+    //creation of the README.md format,
+
+    // \n is used in the last credits in order to line skip
+    // last writefile function is copied from the cu modules that we did in class
+
+    const content = `
+        # ${data.title}
+        
+        ## Description
+        ${data.description} <br>
+        ${license[0]}
+
+        ## Table of Contents
+        - [Installation](#installation)
+        - [Usage](#usage)
+        - [Credits](#credits)
+        - [License](#license)
+
+        ## Developer Notes:
+        - This project creates the basic README.md page utilizing the inputs obtained in node.
+
+        ## Installation
+        ${data.installation}
+
+        ## Usage
+        ${data.usage}
+
+        ## Credits
+        ${data.credit}
+
+        ## License
+        ${license[1]}
+
+        ## Contributing
+        ${data.contributing}
+
+        ## Tests
+        ${data.tests}
+
+        ## Questions
+        For my other projects or to see my work that is mostly obtainable for public, please visit: https://github.com/${data.github}.\n
+        For any other questions, please email me at ${data.email}.
+        `
+    writeFile(fileName, removeTabs(content), (err) => {
+        err ? console.error("Error:", err) : console.log(`Success! Your README is in ${fileName}.`)
+    });
+}
+
+//removal of tabs of the generated README.md (got help here from tutor)
+
+function removeTabs(content) {
+
+    let result = "";
+    const lines = content.split('\n');
+
+    for (const line in lines) {
+
+        result += lines[line].slice(8);
+        result += "\n"
+
+    }
+    return result;
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+
+// copied exactly from the cu-module inquirer example
+
+function init() {
+    inquirer
+        .prompt(questions)
+        .then((responses) => writeToFile(`${responses.title}_README.md`, responses));
+}
+
 
 // Function call to initialize app
+
 init();
