@@ -12,7 +12,7 @@ The project was very tedious. And while the coding aspect was pretty easy and we
 
 Here is the Video-Installation:
 
-[https://drive.google.com/file/d/1h29u9kmHjXJx1T9kP3WvoQ8Apk_X3N0T/view?usp=drive_link](https://drive.google.com/file/d/1h29u9kmHjXJx1T9kP3WvoQ8Apk_X3N0T/view?usp=sharing) 
+https://drive.google.com/file/d/1h29u9kmHjXJx1T9kP3WvoQ8Apk_X3N0T/view?usp=sharing
 
 ## User-Story
 
